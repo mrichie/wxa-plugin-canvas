@@ -268,6 +268,7 @@ const helper = {
             const { x, y, url, zIndex } = image;
             const imageUrl = url;
             // 下载图片
+            console.log('_downloadImageAndInfo: ' + imageUrl);
             this._downImage(imageUrl, index)
                 // 获取图片信息
                 .then(imgPath => this._getImageInfo(imgPath, index))
@@ -288,6 +289,8 @@ const helper = {
                         sy = 0;
                         sx = (width - ((height / setHeight) * setWidth)) / 2;
                     }
+                    console.log(imgPath)
+                    console.log(imgInfo)
                     this.drawArr.push({
                         type: 'image',
                         borderRadius,
