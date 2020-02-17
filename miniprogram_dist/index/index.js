@@ -329,6 +329,7 @@ const helper = {
                         reject(err);
                     },
                 });
+            }
             else if (/^cloud/.test(imageUrl)){
               wx.cloud.downloadFile({
                 fileID: imageUrl, // 文件 ID
@@ -345,7 +346,7 @@ const helper = {
                 },
               })
             }
-            } else {
+            else {
                 // 支持本地地址
                 resolve(imageUrl);
             }
