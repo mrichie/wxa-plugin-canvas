@@ -294,7 +294,7 @@ const helper = {
                         borderWidth: image.borderWidth,
                         borderColor: image.borderColor,
                         zIndex: typeof zIndex !== 'undefined' ? zIndex : index,
-                        imgPath,
+                        imgPath: /^http|wxfile/.test(imgInfo.path) ? imgInfo.path : imgPath,
                         sx,
                         sy,
                         sw: (width - (sx * 2)),
@@ -329,6 +329,22 @@ const helper = {
                         reject(err);
                     },
                 });
+            else if (/^cloud/.test(imageUrl)){
+              wx.cloud.downloadFile({
+                fileID: imageUrl, // 文件 ID
+                success: res => {
+                  // 返回临时文件路径
+                  if (res.statusCode === 200) {
+                    resolve(res.tempFilePath);
+                  } else {
+                    reject(res.errMsg);
+                  }
+                },
+                fail(err) {
+                  reject(err);
+                },
+              })
+            }
             } else {
                 // 支持本地地址
                 resolve(imageUrl);
